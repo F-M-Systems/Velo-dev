@@ -42,3 +42,28 @@ npx supabase test db   # needs Docker; also runs in CI
 ```
 
 After changing the schema, add a file to `supabase/migrations` and a case to `supabase/tests`.
+
+## Deploy
+
+The web app deploys to the Vercel project `velo` (team `f-m-systems`), whose root directory is
+`apps/web`. Run these from the repository root after `vercel login` and `vercel link`:
+
+```
+vercel deploy          # preview, behind Vercel login
+vercel deploy --prod   # public, at https://velo-pearl-xi.vercel.app
+```
+
+The project needs `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` and
+`NEXT_PUBLIC_SITE_URL` (`vercel env ls`). Before the first production deploy, set `site_url` and
+`additional_redirect_urls` in `supabase/config.toml` to the public address and run
+`npx supabase config push`, otherwise links in auth emails keep pointing at localhost.
+
+The mobile app is not deployed yet; it will ship through Expo EAS.
+
+## Status
+
+Done: sign up, sign in, password recovery, clubs, teams, members, invites, and license limits
+(staff, teams, athletes) enforced in the database.
+
+Not built yet: MFA screens, Google/Apple sign-in, Stripe billing, notifications (push, email,
+WhatsApp), calendar and attendance, training plans, chat.

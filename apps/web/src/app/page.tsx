@@ -15,7 +15,10 @@ async function createClub(formData: FormData) {
     _name: name.data,
     _locale: locale,
   });
-  if (error) redirect("/?error=generic");
+  if (error) {
+    console.error("create_organization failed", error);
+    redirect("/?error=generic");
+  }
   redirect(`/org/${orgId}`);
 }
 

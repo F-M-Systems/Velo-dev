@@ -7,6 +7,7 @@ import { getT, requireUser, SITE_URL } from "@/lib/supabase";
 // Triggers raise codes such as license_limit_teams as the error message.
 function fail(orgId: string, message?: string): never {
   const code = message && /^license_\w+$/.test(message) ? message : "generic";
+  if (code === "generic") console.error("org action failed", message);
   redirect(`/org/${orgId}?error=${code}`);
 }
 
