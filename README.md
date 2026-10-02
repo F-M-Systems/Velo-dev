@@ -21,10 +21,10 @@ supabase          migrations (schema + RLS), tests, auth config
    ```
 3. Copy `apps/web/.env.example` to `apps/web/.env.local` and `apps/mobile/.env.example` to
    `apps/mobile/.env.local`, and fill in the project URL and publishable key.
-4. In the Supabase dashboard, under Authentication → Emails, point the links at the web app so they
-   work on any device:
-   - Confirm signup: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email`
-   - Reset password: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/account/password`
+4. Auth emails go through Resend, using the templates in `supabase/templates`. Copy
+   `supabase/.env.example` to `supabase/.env`, paste a Resend API key, and run
+   `npx supabase config push` again. Until a domain is verified in Resend and `admin_email` in
+   `supabase/config.toml` uses it, emails only reach the Resend account owner.
 
 ## Run
 
